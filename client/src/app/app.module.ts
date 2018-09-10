@@ -15,6 +15,9 @@ import { AboutModule } from './about/about.module';
 import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { UserApi, SDKModels, LoopBackAuth, InternalStorage } from '../../sdk';
+import { SocketConnection } from '../../sdk/sockets/socket.connections';
+import { SocketDriver } from '../../sdk/sockets/socket.driver';
 
 @NgModule({
   imports: [
@@ -34,6 +37,12 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   declarations: [AppComponent],
   providers: [
+    UserApi,
+    SocketConnection,
+    SocketDriver,
+    SDKModels,
+    LoopBackAuth,
+    InternalStorage
   ],
   bootstrap: [AppComponent]
 })

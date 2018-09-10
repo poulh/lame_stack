@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { UserApi } from '../../../../sdk';
 
 export interface Credentials {
   // Customize received credentials here
@@ -24,7 +25,8 @@ export class AuthenticationService {
 
   private _credentials: Credentials | null;
 
-  constructor() {
+  constructor(private userApi: UserApi) {
+
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
@@ -37,13 +39,22 @@ export class AuthenticationService {
    * @return {Observable<Credentials>} The user credentials.
    */
   login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
+    //    https://github.com/mean-expert-official/loopback-sdk-builder/wiki/5.-Usage-Examples
+    //   this.userApi.login(context);
+    this.userApi.login(context).subscribe(token => {
+      console.log("here");
+      console.log(token);
+
+    });
     const data = {
       username: context.username,
       token: '123456'
     };
+    debugger;
     this.setCredentials(data, context.remember);
     return of(data);
+    // Replace by proper authentication call
+
   }
 
   /**
