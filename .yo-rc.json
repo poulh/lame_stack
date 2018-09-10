@@ -1,0 +1,21 @@
+{
+  "generator-loopback": {},
+  "generator-ngx-rocket": {
+    "version": "5.1.0",
+    "props": {
+      "location": "path",
+      "appName": "closing_time",
+      "target": [
+        "web"
+      ],
+      "pwa": true,
+      "ui": "bootstrap",
+      "auth": true,
+      "lazy": false,
+      "angulartics": false,
+      "projectName": "closing-time",
+      "packageManager": "npm",
+      "mobile": []
+    }
+  }
+}
