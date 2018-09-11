@@ -40,6 +40,18 @@ export class AuthenticationService {
   }
 
   /**
+   * Signup new user.
+   * @param {LoginContext} context The login parameters.
+   * @return {Observable<Credentials>} The user credentials.
+   */
+  signup(context: LoginContext): Observable<any> {
+
+    //    https://github.com/mean-expert-official/loopback-sdk-builder/wiki/5.-Usage-Examples
+    return this.userApi.create(context);
+    //return this.userApi.login(context, 'user', context.remember);
+  }
+
+  /**
    * Logs out the user and clear credentials.
    * @return {Observable<boolean>} True if the user was logged out successfully.
    */

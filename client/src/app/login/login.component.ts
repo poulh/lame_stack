@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { Logger, I18nService, AuthenticationService } from '@app/core';
 
 import { AccessToken } from '../../../sdk';
+import { User } from '../../../sdk/models';
 
 const log = new Logger('Login');
 
@@ -19,21 +20,29 @@ export class LoginComponent implements OnInit {
 
   version: string = environment.version;
   error: string;
+  signupForm: FormGroup;
   loginForm: FormGroup;
   isLoading = false;
 
   constructor(private router: Router,
-              private formBuilder: FormBuilder,
-              private i18nService: I18nService,
-              private authenticationService: AuthenticationService) {
-    this.createForm();
+    private formBuilder: FormBuilder,
+    private i18nService: I18nService,
+    private authenticationService: AuthenticationService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.createSignupForm();
+    this.createLoginForm();
+  }
 
   login() {
     this.isLoading = true;
-    this.authenticationService.login(this.loginForm.value)
+    this.doLogin(this.loginForm.value);
+  }
+
+  doLogin(values: any): void {
+    this.isLoading = true;
+    this.authenticationService.login(values)
       .pipe(finalize(() => {
         this.loginForm.markAsPristine();
         this.isLoading = false;
@@ -43,6 +52,24 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/'], { replaceUrl: true });
       }, error => {
         log.debug(`Login error: ${error}`);
+        this.error = error;
+      });
+  }
+
+  signup() {
+    this.isLoading = true;
+
+    this.authenticationService.signup(this.signupForm.value)
+      .pipe(finalize(() => {
+        this.signupForm.markAsPristine();
+        this.doLogin(this.signupForm.value);
+        this.isLoading = false;
+      }))
+      .subscribe((user: User) => {
+        debugger;
+        log.debug(`${user.id} successfully signed up`);
+      }, error => {
+        log.debug(`Signup error: ${error}`);
         this.error = error;
       });
   }
@@ -59,8 +86,17 @@ export class LoginComponent implements OnInit {
     return this.i18nService.supportedLanguages;
   }
 
-  private createForm() {
+  private createLoginForm() {
     this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      remember: true
+    });
+  }
+
+  private createSignupForm() {
+    this.signupForm = this.formBuilder.group({
+      email: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
       remember: true
