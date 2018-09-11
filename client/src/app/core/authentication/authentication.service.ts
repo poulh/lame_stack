@@ -36,7 +36,7 @@ export class AuthenticationService {
   login(context: LoginContext): Observable<any> {
 
     //    https://github.com/mean-expert-official/loopback-sdk-builder/wiki/5.-Usage-Examples
-    return this.userApi.login(context);
+    return this.userApi.login(context, 'user', context.remember);
   }
 
   /**
@@ -52,7 +52,8 @@ export class AuthenticationService {
    * @return {boolean} True if the user is authenticated.
    */
   isAuthenticated(): boolean {
-    return this.userApi.isAuthenticated();
+    const authenticated = this.userApi.isAuthenticated();
+    return authenticated;
   }
 
   /**

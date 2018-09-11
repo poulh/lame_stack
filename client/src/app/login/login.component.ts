@@ -6,6 +6,8 @@ import { finalize } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Logger, I18nService, AuthenticationService } from '@app/core';
 
+import { AccessToken } from '../../../sdk';
+
 const log = new Logger('Login');
 
 @Component({
@@ -36,8 +38,8 @@ export class LoginComponent implements OnInit {
         this.loginForm.markAsPristine();
         this.isLoading = false;
       }))
-      .subscribe(credentials => {
-        log.debug(`${credentials.username} successfully logged in`);
+      .subscribe((token: AccessToken) => {
+        log.debug(`${token.user} successfully logged in`);
         this.router.navigate(['/'], { replaceUrl: true });
       }, error => {
         log.debug(`Login error: ${error}`);

@@ -15,9 +15,7 @@ import { AboutModule } from './about/about.module';
 import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { UserApi, SDKModels, LoopBackAuth, InternalStorage } from '../../sdk';
-import { SocketConnection } from '../../sdk/sockets/socket.connections';
-import { SocketDriver } from '../../sdk/sockets/socket.driver';
+import { SDKBrowserModule } from '../../sdk';
 
 @NgModule({
   imports: [
@@ -33,16 +31,11 @@ import { SocketDriver } from '../../sdk/sockets/socket.driver';
     HomeModule,
     AboutModule,
     LoginModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SDKBrowserModule.forRoot()
   ],
   declarations: [AppComponent],
   providers: [
-    UserApi,
-    SocketConnection,
-    SocketDriver,
-    SDKModels,
-    LoopBackAuth,
-    InternalStorage
   ],
   bootstrap: [AppComponent]
 })
