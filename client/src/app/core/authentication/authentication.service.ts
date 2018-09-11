@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, } from 'rxjs';
+
 import { UserApi } from '../../../../sdk';
+
 
 export interface Credentials {
   // Customize received credentials here
@@ -23,14 +25,7 @@ const credentialsKey = 'credentials';
 @Injectable()
 export class AuthenticationService {
 
-  private _credentials: Credentials | null;
-
   constructor(private userApi: UserApi) {
-
-    const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
-    if (savedCredentials) {
-      this._credentials = JSON.parse(savedCredentials);
-    }
   }
 
   /**
@@ -38,23 +33,10 @@ export class AuthenticationService {
    * @param {LoginContext} context The login parameters.
    * @return {Observable<Credentials>} The user credentials.
    */
-  login(context: LoginContext): Observable<Credentials> {
+  login(context: LoginContext): Observable<any> {
+
     //    https://github.com/mean-expert-official/loopback-sdk-builder/wiki/5.-Usage-Examples
-    //   this.userApi.login(context);
-    this.userApi.login(context).subscribe(token => {
-      console.log("here");
-      console.log(token);
-
-    });
-    const data = {
-      username: context.username,
-      token: '123456'
-    };
-    debugger;
-    this.setCredentials(data, context.remember);
-    return of(data);
-    // Replace by proper authentication call
-
+    return this.userApi.login(context);
   }
 
   /**
@@ -62,9 +44,7 @@ export class AuthenticationService {
    * @return {Observable<boolean>} True if the user was logged out successfully.
    */
   logout(): Observable<boolean> {
-    // Customize credentials invalidation here
-    this.setCredentials();
-    return of(true);
+    return this.userApi.logout();
   }
 
   /**
@@ -72,7 +52,7 @@ export class AuthenticationService {
    * @return {boolean} True if the user is authenticated.
    */
   isAuthenticated(): boolean {
-    return !!this.credentials;
+    return this.userApi.isAuthenticated();
   }
 
   /**
@@ -80,26 +60,6 @@ export class AuthenticationService {
    * @return {Credentials} The user credentials or null if the user is not authenticated.
    */
   get credentials(): Credentials | null {
-    return this._credentials;
+    return this.userApi.getCachedCurrent();
   }
-
-  /**
-   * Sets the user credentials.
-   * The credentials may be persisted across sessions by setting the `remember` parameter to true.
-   * Otherwise, the credentials are only persisted for the current session.
-   * @param {Credentials=} credentials The user credentials.
-   * @param {boolean=} remember True to remember credentials across sessions.
-   */
-  private setCredentials(credentials?: Credentials, remember?: boolean) {
-    this._credentials = credentials || null;
-
-    if (credentials) {
-      const storage = remember ? localStorage : sessionStorage;
-      storage.setItem(credentialsKey, JSON.stringify(credentials));
-    } else {
-      sessionStorage.removeItem(credentialsKey);
-      localStorage.removeItem(credentialsKey);
-    }
-  }
-
 }
