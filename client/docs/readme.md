@@ -1,4 +1,4 @@
-# Closing Time
+# Club Checkin
 
 Welcome to the project documentation!
 
