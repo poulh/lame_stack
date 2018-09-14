@@ -4,7 +4,7 @@
     "version": "5.1.0",
     "props": {
       "location": "path",
-      "appName": "closing_time",
+      "appName": "lame_stack",
       "target": [
         "web"
       ],

@@ -1,5 +1,5 @@
 {
-  "name": "closing_time",
+  "name": "lame_stack",
   "version": "1.0.0",
   "main": "server/server.js",
   "engines": {
@@ -30,5 +30,5 @@
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "closing_time"
+  "description": "lame_stack"
 }
