@@ -1,4 +1,4 @@
-# Club Checkin
+# Lean Stack
 
 Welcome to the project documentation!
 
