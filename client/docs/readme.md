@@ -1,4 +1,4 @@
-# Lean Stack
+# LAME Stack
 
 Welcome to the project documentation!
 
