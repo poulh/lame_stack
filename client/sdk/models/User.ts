@@ -1,4 +1,7 @@
 /* tslint:disable */
+import {
+  Account
+} from '../index';
 
 declare var Object: any;
 export interface UserInterface {
@@ -7,8 +10,10 @@ export interface UserInterface {
   "email": string;
   "emailVerified"?: boolean;
   "id"?: number;
+  "accountId"?: number;
   "password"?: string;
   accessTokens?: any[];
+  account?: Account;
 }
 
 export class User implements UserInterface {
@@ -17,8 +22,10 @@ export class User implements UserInterface {
   "email": string;
   "emailVerified": boolean;
   "id": number;
+  "accountId": number;
   "password": string;
   accessTokens: any[];
+  account: Account;
   constructor(data?: UserInterface) {
     Object.assign(this, data);
   }
@@ -48,8 +55,8 @@ export class User implements UserInterface {
   public static getModelDefinition() {
     return {
       name: 'User',
-      plural: 'Users',
-      path: 'Users',
+      plural: 'users',
+      path: 'users',
       idName: 'id',
       properties: {
         "realm": {
@@ -72,6 +79,10 @@ export class User implements UserInterface {
           name: 'id',
           type: 'number'
         },
+        "accountId": {
+          name: 'accountId',
+          type: 'number'
+        },
         "password": {
           name: 'password',
           type: 'string'
@@ -85,6 +96,14 @@ export class User implements UserInterface {
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'userId'
+        },
+        account: {
+          name: 'account',
+          type: 'Account',
+          model: 'Account',
+          relationType: 'belongsTo',
+                  keyFrom: 'accountId',
+          keyTo: 'id'
         },
       }
     }
