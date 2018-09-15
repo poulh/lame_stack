@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, } from 'rxjs';
 
-import { UserApi } from '../../../../sdk';
+import { AccountApi, ClientApi } from '../../../../sdk';
 
 
 export interface Credentials {
@@ -25,7 +25,8 @@ const credentialsKey = 'credentials';
 @Injectable()
 export class AuthenticationService {
 
-  constructor(private userApi: UserApi) {
+  constructor(private accountApi: AccountApi,
+    private clientApi: ClientApi) {
   }
 
   /**
@@ -36,7 +37,7 @@ export class AuthenticationService {
   login(context: LoginContext): Observable<any> {
 
     //    https://github.com/mean-expert-official/loopback-sdk-builder/wiki/5.-Usage-Examples
-    return this.userApi.login(context, 'user', context.remember);
+    return this.clientApi.login(context, 'user', context.remember);
   }
 
   /**
@@ -47,7 +48,8 @@ export class AuthenticationService {
   signup(context: LoginContext): Observable<any> {
 
     //    https://github.com/mean-expert-official/loopback-sdk-builder/wiki/5.-Usage-Examples
-    return this.userApi.create(context);
+    return this.accountApi.signup("WSRC", "foo@foo.com", context.username, context.password)
+    // return this.userApi.create(context);
     //return this.userApi.login(context, 'user', context.remember);
   }
 
@@ -56,7 +58,7 @@ export class AuthenticationService {
    * @return {Observable<boolean>} True if the user was logged out successfully.
    */
   logout(): Observable<boolean> {
-    return this.userApi.logout();
+    return this.clientApi.logout();
   }
 
   /**
@@ -64,7 +66,7 @@ export class AuthenticationService {
    * @return {boolean} True if the user is authenticated.
    */
   isAuthenticated(): boolean {
-    const authenticated = this.userApi.isAuthenticated();
+    const authenticated = this.clientApi.isAuthenticated();
     return authenticated;
   }
 
@@ -73,6 +75,6 @@ export class AuthenticationService {
    * @return {Credentials} The user credentials or null if the user is not authenticated.
    */
   get credentials(): Credentials | null {
-    return this.userApi.getCachedCurrent();
+    return this.clientApi.getCachedCurrent();
   }
 }

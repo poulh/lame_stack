@@ -6,12 +6,37 @@ module.exports = function (Account) {
     Account.signup = function (accountName, email, username, password, cb) {
 
         Account.create({ name: accountName, creationDate: new Date() }, function (err, account) {
-            account.users.create({ username: username, password: password, email: email }, function (err, user) {
-                if (err) return cb(err);
-                cb(null, user);
+            if (err) {
+                throw (err);
+            }
+
+            const credentials = {
+                email: email,
+                username: username,
+                password: password
+            };
+
+            account.clients.create(credentials, function (err, client) {
+                if (err) {
+                    throw (err);
+                }
+
+                let Client = Account.app.models.Client;
+                delete credentials.email;
+
+                Client.login(credentials, 'user', function (err, token) {
+                    if (err) {
+                        console.log(err);
+                        throw (err);
+                    }
+
+                    cb(null, token);
+                });
+
             });
         });
     };
+
     Account.remoteMethod('signup', {
         accepts: [
             { arg: 'accountName', type: 'string' },
@@ -19,7 +44,8 @@ module.exports = function (Account) {
             { arg: 'username', type: 'string' },
             { arg: 'password', type: 'string' }
         ],
-        returns: { arg: 'user', type: 'object' },
+        description: "Signup new Client. Create Account and adds Client to it",
+        returns: { type: 'object', root: true },
         http: { path: '/signup', verb: 'post' }
     });
 

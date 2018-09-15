@@ -1,6 +1,6 @@
 /* tslint:disable */
 import {
-  User
+  Client
 } from '../index';
 
 declare var Object: any;
@@ -8,14 +8,14 @@ export interface AccountInterface {
   "name": string;
   "creationDate": Date;
   "id"?: number;
-  users?: User[];
+  clients?: Client[];
 }
 
 export class Account implements AccountInterface {
   "name": string;
   "creationDate": Date;
   "id": number;
-  users: User[];
+  clients: Client[];
   constructor(data?: AccountInterface) {
     Object.assign(this, data);
   }
@@ -45,8 +45,8 @@ export class Account implements AccountInterface {
   public static getModelDefinition() {
     return {
       name: 'Account',
-      plural: 'accounts',
-      path: 'accounts',
+      plural: 'Accounts',
+      path: 'Accounts',
       idName: 'id',
       properties: {
         "name": {
@@ -63,10 +63,10 @@ export class Account implements AccountInterface {
         },
       },
       relations: {
-        users: {
-          name: 'users',
-          type: 'User[]',
-          model: 'User',
+        clients: {
+          name: 'clients',
+          type: 'Client[]',
+          model: 'Client',
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'accountId'

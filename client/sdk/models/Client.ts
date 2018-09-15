@@ -1,42 +1,53 @@
 /* tslint:disable */
+import {
+  Account
+} from '../index';
 
 declare var Object: any;
-export interface UserInterface {
+export interface ClientInterface {
+  "firstName"?: string;
+  "lastName"?: string;
   "realm"?: string;
   "username"?: string;
   "email": string;
   "emailVerified"?: boolean;
   "id"?: number;
+  "accountId"?: number;
   "password"?: string;
   accessTokens?: any[];
+  account?: Account;
 }
 
-export class User implements UserInterface {
+export class Client implements ClientInterface {
+  "firstName": string;
+  "lastName": string;
   "realm": string;
   "username": string;
   "email": string;
   "emailVerified": boolean;
   "id": number;
+  "accountId": number;
   "password": string;
   accessTokens: any[];
-  constructor(data?: UserInterface) {
+  account: Account;
+  constructor(data?: ClientInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `User`.
+   * i.e. `Client`.
    */
   public static getModelName() {
-    return "User";
+    return "Client";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of User for dynamic purposes.
+  * This method creates an instance of Client for dynamic purposes.
   **/
-  public static factory(data: UserInterface): User{
-    return new User(data);
+  public static factory(data: ClientInterface): Client{
+    return new Client(data);
   }
   /**
   * @method getModelDefinition
@@ -47,11 +58,19 @@ export class User implements UserInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'User',
-      plural: 'Users',
-      path: 'Users',
+      name: 'Client',
+      plural: 'Clients',
+      path: 'Clients',
       idName: 'id',
       properties: {
+        "firstName": {
+          name: 'firstName',
+          type: 'string'
+        },
+        "lastName": {
+          name: 'lastName',
+          type: 'string'
+        },
         "realm": {
           name: 'realm',
           type: 'string'
@@ -72,6 +91,10 @@ export class User implements UserInterface {
           name: 'id',
           type: 'number'
         },
+        "accountId": {
+          name: 'accountId',
+          type: 'number'
+        },
         "password": {
           name: 'password',
           type: 'string'
@@ -85,6 +108,14 @@ export class User implements UserInterface {
           relationType: 'hasMany',
                   keyFrom: 'id',
           keyTo: 'userId'
+        },
+        account: {
+          name: 'account',
+          type: 'Account',
+          model: 'Account',
+          relationType: 'belongsTo',
+                  keyFrom: 'accountId',
+          keyTo: 'id'
         },
       }
     }

@@ -1,6 +1,6 @@
 {
-  "name": "account",
-  "plural": "accounts",
+  "name": "Account",
+  "plural": "Accounts",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -18,10 +18,13 @@
   },
   "validations": [],
   "relations": {
-    "users": {
+    "clients": {
       "type": "hasMany",
-      "model": "user",
-      "foreignKey": "accountId"
+      "model": "Client",
+      "foreignKey": "accountId",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [],

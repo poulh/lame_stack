@@ -96,6 +96,7 @@ export class LoginComponent implements OnInit {
 
   private createSignupForm() {
     this.signupForm = this.formBuilder.group({
+      accountName: ['', Validators.required],
       email: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],

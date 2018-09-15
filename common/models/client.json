@@ -1,17 +1,26 @@
 {
-  "name": "user",
-  "plural": "users",
+  "name": "Client",
+  "plural": "Clients",
   "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": false
+    },
+    "lastName": {
+      "type": "string",
+      "required": false
+    }
+  },
   "validations": [],
   "relations": {
     "account": {
       "type": "belongsTo",
-      "model": "account",
+      "model": "Account",
       "foreignKey": "accountId"
     }
   },
