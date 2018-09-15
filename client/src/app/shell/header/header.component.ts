@@ -13,8 +13,8 @@ export class HeaderComponent implements OnInit {
   menuHidden = true;
 
   constructor(private router: Router,
-              private authenticationService: AuthenticationService,
-              private i18nService: I18nService) { }
+    private authenticationService: AuthenticationService,
+    private i18nService: I18nService) { }
 
   ngOnInit() { }
 
@@ -37,6 +37,15 @@ export class HeaderComponent implements OnInit {
 
   get languages(): string[] {
     return this.i18nService.supportedLanguages;
+  }
+
+  get fullName(): string | null {
+    const credentials = this.authenticationService.credentials;
+    return credentials ? credentials.firstName + " " + credentials.lastName : null;
+  }
+  get accountName(): string | null {
+    const credentials = this.authenticationService.credentials;
+    return credentials ? credentials.accountName : null;
   }
 
   get username(): string | null {

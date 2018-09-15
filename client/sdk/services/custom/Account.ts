@@ -306,13 +306,7 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * @param {object} data Request data.
    *
-   *  - `accountName` – `{string}` - 
-   *
-   *  - `email` – `{string}` - 
-   *
-   *  - `username` – `{string}` - 
-   *
-   *  - `password` – `{string}` - 
+   * This method expects a subset of model properties as request parameters.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -323,17 +317,43 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public signup(accountName: any = {}, email: any = {}, username: any = {}, password: any = {}, customHeaders?: Function): Observable<any> {
+  public signup(credentials: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
     "/Accounts/signup";
     let _routeParams: any = {};
-    let _postBody: any = {};
+    let _postBody: any = {
+      credentials: credentials
+    };
     let _urlParams: any = {};
-    if (typeof accountName !== 'undefined' && accountName !== null) _urlParams.accountName = accountName;
-    if (typeof email !== 'undefined' && email !== null) _urlParams.email = email;
-    if (typeof username !== 'undefined' && username !== null) _urlParams.username = username;
-    if (typeof password !== 'undefined' && password !== null) _urlParams.password = password;
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    return result;
+  }
+
+  /**
+   * foo
+   *
+   * @param {object} data Request data.
+   *
+   * This method expects a subset of model properties as request parameters.
+   *
+   * @returns {object} An empty reference that will be
+   *   populated with the actual data once the response is returned
+   *   from the server.
+   *
+   * Data properties:
+   *
+   *  - `data` – `{object}` - 
+   */
+  public foo(data: any = {}, customHeaders?: Function): Observable<any> {
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/Accounts/foo";
+    let _routeParams: any = {};
+    let _postBody: any = {
+      data: data
+    };
+    let _urlParams: any = {};
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }

@@ -2,7 +2,7 @@ module.exports = function (app) {
 
     var Account = app.models.Account;
 
-    Account.signup("XYZ Corp", "foo@bar.com", "foo", "bar", function (err, token) {
+    Account.signup({ accountName: "XYZ Corp", firstName: "Pat", lastName: "Smith", email: "psmith@xyz.com", username: "psmith", password: "xyz" }, function (err, token) {
         if (err) {
             throw (err);
         }

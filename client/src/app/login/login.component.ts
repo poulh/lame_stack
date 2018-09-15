@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }))
       .subscribe((user: User) => {
-        debugger;
         log.debug(`${user.id} successfully signed up`);
       }, error => {
         log.debug(`Signup error: ${error}`);
@@ -97,6 +96,8 @@ export class LoginComponent implements OnInit {
   private createSignupForm() {
     this.signupForm = this.formBuilder.group({
       accountName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],

@@ -6,15 +6,29 @@ import { AccountApi, ClientApi } from '../../../../sdk';
 
 export interface Credentials {
   // Customize received credentials here
+  accountName: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   username: string;
   token: string;
 }
+
+export interface SignupContext {
+  accountName: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  password: string;
+  remember?: boolean;
+};
 
 export interface LoginContext {
   username: string;
   password: string;
   remember?: boolean;
-}
+};
 
 const credentialsKey = 'credentials';
 
@@ -45,10 +59,10 @@ export class AuthenticationService {
    * @param {LoginContext} context The login parameters.
    * @return {Observable<Credentials>} The user credentials.
    */
-  signup(context: LoginContext): Observable<any> {
+  signup(context: SignupContext): Observable<any> {
 
     //    https://github.com/mean-expert-official/loopback-sdk-builder/wiki/5.-Usage-Examples
-    return this.accountApi.signup("WSRC", "foo@foo.com", context.username, context.password)
+    return this.accountApi.signup(context);
     // return this.userApi.create(context);
     //return this.userApi.login(context, 'user', context.remember);
   }

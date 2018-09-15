@@ -3,18 +3,12 @@
 module.exports = function (Account) {
 
     // signup
-    Account.signup = function (accountName, email, username, password, cb) {
+    Account.signup = function (credentials, cb) {
 
-        Account.create({ name: accountName, creationDate: new Date() }, function (err, account) {
+        Account.create({ name: credentials.accountName, creationDate: new Date() }, function (err, account) {
             if (err) {
                 throw (err);
             }
-
-            const credentials = {
-                email: email,
-                username: username,
-                password: password
-            };
 
             account.clients.create(credentials, function (err, client) {
                 if (err) {
@@ -39,16 +33,30 @@ module.exports = function (Account) {
 
     Account.remoteMethod('signup', {
         accepts: [
-            { arg: 'accountName', type: 'string' },
-            { arg: 'email', type: 'string' },
-            { arg: 'username', type: 'string' },
-            { arg: 'password', type: 'string' }
+            { arg: 'credentials', type: 'object', http: { source: 'body' } }
+            /* { arg: 'accountName', type: 'string' },
+             { arg: 'email', type: 'string' },
+             { arg: 'username', type: 'string' },
+             { arg: 'password', type: 'string' }
+             */
         ],
         description: "Signup new Client. Create Account and adds Client to it",
         returns: { type: 'object', root: true },
         http: { path: '/signup', verb: 'post' }
     });
 
+    Account.foo = function (params, cb) {
+        console.log(params);
+        cb(null, params);
+    };
 
+    Account.remoteMethod('foo', {
+        accepts: [
+            { arg: 'data', type: 'object', http: { source: 'body' } },
 
+        ],
+        description: 'foo',
+        returns: { arg: 'data', type: 'object' },
+        http: { path: '/foo', verb: 'post' }
+    });
 };

@@ -5,8 +5,8 @@ import {
 
 declare var Object: any;
 export interface ClientInterface {
-  "firstName"?: string;
-  "lastName"?: string;
+  "firstName": string;
+  "lastName": string;
   "realm"?: string;
   "username"?: string;
   "email": string;

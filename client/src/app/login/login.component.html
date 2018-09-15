@@ -28,6 +28,32 @@
               </div>
               <div class="form-group">
                 <label class="d-block">
+                  <input type="text" class="form-control" formControlName="accountName" autocomplete="org" [placeholder]="'Account Name' | translate"
+                  />
+                  <span hidden translate>Account Name</span>
+                  <small [hidden]="signupForm.controls.accountName.valid || signupForm.controls.accountName.untouched" class="text-danger"
+                    translate>
+                    Account Name is required
+                  </small>
+                </label>
+                <label class="d-block">
+                  <input type="text" class="form-control" formControlName="firstName" autocomplete="given-name" [placeholder]="'First Name' | translate"
+                  />
+                  <span hidden translate>First Name</span>
+                  <small [hidden]="signupForm.controls.firstName.valid || signupForm.controls.firstName.untouched" class="text-danger" translate>
+                    First Name is required
+                  </small>
+                </label>
+                <label class="d-block">
+                  <input type="text" class="form-control" formControlName="lastName" autocomplete="family-name" [placeholder]="'Last Name' | translate"
+                  />
+                  <span hidden translate>Last Name</span>
+                  <small [hidden]="signupForm.controls.lastName.valid || signupForm.controls.lastName.untouched" class="text-danger" translate>
+                    Last Name is required
+                  </small>
+                </label>
+
+                <label class="d-block">
                   <input type="text" class="form-control" formControlName="email" autocomplete="email" [placeholder]="'Email' | translate"
                   />
                   <span hidden translate>Email</span>
