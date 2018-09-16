@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService, I18nService } from '@app/core';
+import { RegisteredUserApi } from '../../../../sdk';
 
 @Component({
   selector: 'app-header',
@@ -10,13 +11,18 @@ import { AuthenticationService, I18nService } from '@app/core';
 })
 export class HeaderComponent implements OnInit {
 
+  accountName: string;
+
   menuHidden = true;
 
   constructor(private router: Router,
     private authenticationService: AuthenticationService,
+    private registeredUserApi: RegisteredUserApi,
     private i18nService: I18nService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getAccount();
+  }
 
   toggleMenu() {
     this.menuHidden = !this.menuHidden;
@@ -43,14 +49,18 @@ export class HeaderComponent implements OnInit {
     const credentials = this.authenticationService.credentials;
     return credentials ? credentials.firstName + " " + credentials.lastName : null;
   }
-  get accountName(): string | null {
-    const credentials = this.authenticationService.credentials;
-    return credentials ? credentials.accountName : null;
-  }
-
   get username(): string | null {
     const credentials = this.authenticationService.credentials;
     return credentials ? credentials.username : null;
   }
 
+  getAccount(): void {
+    const credentials = this.authenticationService.credentials;
+
+    this.registeredUserApi.getAccount(credentials.id, true).subscribe(account => {
+      console.log(account);
+      this.accountName = account.name;
+    })
+
+  }
 }

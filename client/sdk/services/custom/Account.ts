@@ -11,7 +11,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Account } from '../../models/Account';
 import { SocketConnection } from '../../sockets/socket.connections';
-import { Client } from '../../models/Client';
+import { RegisteredUser } from '../../models/RegisteredUser';
 
 
 /**
@@ -31,11 +31,11 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Find a related item by id for clients.
+   * Find a related item by id for registeredUsers.
    *
    * @param {any} id Account id
    *
-   * @param {any} fk Foreign key for clients
+   * @param {any} fk Foreign key for registeredUsers
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -46,10 +46,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public findByIdClients(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public findByIdRegisteredUsers(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:fk";
+    "/Accounts/:id/registeredUsers/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -61,11 +61,11 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Delete a related item by id for clients.
+   * Delete a related item by id for registeredUsers.
    *
    * @param {any} id Account id
    *
-   * @param {any} fk Foreign key for clients
+   * @param {any} fk Foreign key for registeredUsers
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -73,10 +73,10 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdClients(id: any, fk: any, customHeaders?: Function): Observable<any> {
+  public destroyByIdRegisteredUsers(id: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:fk";
+    "/Accounts/:id/registeredUsers/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -88,11 +88,11 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Update a related item by id for clients.
+   * Update a related item by id for registeredUsers.
    *
    * @param {any} id Account id
    *
-   * @param {any} fk Foreign key for clients
+   * @param {any} fk Foreign key for registeredUsers
    *
    * @param {object} data Request data.
    *
@@ -107,10 +107,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public updateByIdClients(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdRegisteredUsers(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:fk";
+    "/Accounts/:id/registeredUsers/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
@@ -124,7 +124,7 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries clients of Account.
+   * Queries registeredUsers of Account.
    *
    * @param {any} id Account id
    *
@@ -139,10 +139,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public getClients(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+  public getRegisteredUsers(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients";
+    "/Accounts/:id/registeredUsers";
     let _routeParams: any = {
       id: id
     };
@@ -154,7 +154,7 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in clients of this model.
+   * Creates a new instance in registeredUsers of this model.
    *
    * @param {any} id Account id
    *
@@ -171,10 +171,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public createClients(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createRegisteredUsers(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients";
+    "/Accounts/:id/registeredUsers";
     let _routeParams: any = {
       id: id
     };
@@ -187,7 +187,7 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Deletes all clients of this model.
+   * Deletes all registeredUsers of this model.
    *
    * @param {any} id Account id
    *
@@ -197,10 +197,10 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteClients(id: any, customHeaders?: Function): Observable<any> {
+  public deleteRegisteredUsers(id: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients";
+    "/Accounts/:id/registeredUsers";
     let _routeParams: any = {
       id: id
     };
@@ -211,7 +211,7 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts clients of Account.
+   * Counts registeredUsers of Account.
    *
    * @param {any} id Account id
    *
@@ -225,10 +225,10 @@ export class AccountApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countClients(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countRegisteredUsers(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/count";
+    "/Accounts/:id/registeredUsers/count";
     let _routeParams: any = {
       id: id
     };
@@ -363,7 +363,7 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -376,10 +376,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public findByIdClientsAccessTokens(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+  public findByIdRegisteredUsersAccessTokens(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/accessTokens/:fk";
+    "/Accounts/:id/registeredUsers/:nk/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       nk: nk,
@@ -396,7 +396,7 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -406,10 +406,10 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public destroyByIdClientsAccessTokens(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
+  public destroyByIdRegisteredUsersAccessTokens(id: any, nk: any, fk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/accessTokens/:fk";
+    "/Accounts/:id/registeredUsers/:nk/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       nk: nk,
@@ -426,7 +426,7 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @param {any} fk Foreign key for accessTokens
    *
@@ -443,10 +443,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public updateByIdClientsAccessTokens(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public updateByIdRegisteredUsersAccessTokens(id: any, nk: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "PUT";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/accessTokens/:fk";
+    "/Accounts/:id/registeredUsers/:nk/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       nk: nk,
@@ -465,7 +465,7 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @param {boolean} refresh 
    *
@@ -478,10 +478,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public getClientsAccount(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
+  public getRegisteredUsersAccount(id: any, nk: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/account";
+    "/Accounts/:id/registeredUsers/:nk/account";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -494,11 +494,11 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Queries accessTokens of Client.
+   * Queries accessTokens of RegisteredUser.
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @param {object} filter 
    *
@@ -511,10 +511,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public getClientsAccessTokens(id: any, nk: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
+  public getRegisteredUsersAccessTokens(id: any, nk: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/accessTokens";
+    "/Accounts/:id/registeredUsers/:nk/accessTokens";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -531,7 +531,7 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @param {object} data Request data.
    *
@@ -546,10 +546,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public createClientsAccessTokens(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
+  public createRegisteredUsersAccessTokens(id: any, nk: any, data: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/accessTokens";
+    "/Accounts/:id/registeredUsers/:nk/accessTokens";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -567,7 +567,7 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @returns {object} An empty reference that will be
    *   populated with the actual data once the response is returned
@@ -575,10 +575,10 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * This method returns no data.
    */
-  public deleteClientsAccessTokens(id: any, nk: any, customHeaders?: Function): Observable<any> {
+  public deleteRegisteredUsersAccessTokens(id: any, nk: any, customHeaders?: Function): Observable<any> {
     let _method: string = "DELETE";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/accessTokens";
+    "/Accounts/:id/registeredUsers/:nk/accessTokens";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -590,11 +590,11 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Counts accessTokens of Client.
+   * Counts accessTokens of RegisteredUser.
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @param {object} where Criteria to match model instances
    *
@@ -606,10 +606,10 @@ export class AccountApi extends BaseLoopBackApi {
    *
    *  - `count` – `{number}` - 
    */
-  public countClientsAccessTokens(id: any, nk: any, where: any = {}, customHeaders?: Function): Observable<any> {
+  public countRegisteredUsersAccessTokens(id: any, nk: any, where: any = {}, customHeaders?: Function): Observable<any> {
     let _method: string = "GET";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/accessTokens/count";
+    "/Accounts/:id/registeredUsers/:nk/accessTokens/count";
     let _routeParams: any = {
       id: id,
       nk: nk
@@ -622,7 +622,7 @@ export class AccountApi extends BaseLoopBackApi {
   }
 
   /**
-   * Creates a new instance in clients of this model.
+   * Creates a new instance in registeredUsers of this model.
    *
    * @param {any} id Account id
    *
@@ -639,10 +639,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public createManyClients(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyRegisteredUsers(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients";
+    "/Accounts/:id/registeredUsers";
     let _routeParams: any = {
       id: id
     };
@@ -659,7 +659,7 @@ export class AccountApi extends BaseLoopBackApi {
    *
    * @param {any} id Account id
    *
-   * @param {any} nk Foreign key for clients.
+   * @param {any} nk Foreign key for registeredUsers.
    *
    * @param {object} data Request data.
    *
@@ -674,10 +674,10 @@ export class AccountApi extends BaseLoopBackApi {
    * This usually means the response is a `Account` object.)
    * </em>
    */
-  public createManyClientsAccessTokens(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
+  public createManyRegisteredUsersAccessTokens(id: any, nk: any, data: any[] = [], customHeaders?: Function): Observable<any> {
     let _method: string = "POST";
     let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-    "/Accounts/:id/clients/:nk/accessTokens";
+    "/Accounts/:id/registeredUsers/:nk/accessTokens";
     let _routeParams: any = {
       id: id,
       nk: nk

@@ -4,7 +4,7 @@ import {
 } from '../index';
 
 declare var Object: any;
-export interface ClientInterface {
+export interface RegisteredUserInterface {
   "firstName": string;
   "lastName": string;
   "realm"?: string;
@@ -18,7 +18,7 @@ export interface ClientInterface {
   account?: Account;
 }
 
-export class Client implements ClientInterface {
+export class RegisteredUser implements RegisteredUserInterface {
   "firstName": string;
   "lastName": string;
   "realm": string;
@@ -30,24 +30,24 @@ export class Client implements ClientInterface {
   "password": string;
   accessTokens: any[];
   account: Account;
-  constructor(data?: ClientInterface) {
+  constructor(data?: RegisteredUserInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Client`.
+   * i.e. `RegisteredUser`.
    */
   public static getModelName() {
-    return "Client";
+    return "RegisteredUser";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of Client for dynamic purposes.
+  * This method creates an instance of RegisteredUser for dynamic purposes.
   **/
-  public static factory(data: ClientInterface): Client{
-    return new Client(data);
+  public static factory(data: RegisteredUserInterface): RegisteredUser{
+    return new RegisteredUser(data);
   }
   /**
   * @method getModelDefinition
@@ -58,9 +58,9 @@ export class Client implements ClientInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'Client',
-      plural: 'Clients',
-      path: 'Clients',
+      name: 'RegisteredUser',
+      plural: 'RegisteredUsers',
+      path: 'RegisteredUsers',
       idName: 'id',
       properties: {
         "firstName": {

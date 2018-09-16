@@ -1,6 +1,6 @@
 {
-  "name": "Client",
-  "plural": "Clients",
+  "name": "RegisteredUser",
+  "plural": "RegisteredUsers",
   "base": "User",
   "idInjection": true,
   "options": {
@@ -21,9 +21,19 @@
     "account": {
       "type": "belongsTo",
       "model": "Account",
-      "foreignKey": "accountId"
+      "foreignKey": "accountId",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

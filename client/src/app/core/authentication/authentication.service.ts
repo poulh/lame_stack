@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, } from 'rxjs';
 
-import { AccountApi, ClientApi } from '../../../../sdk';
+import { AccountApi, RegisteredUserApi } from '../../../../sdk';
 
-
-export interface Credentials {
-  // Customize received credentials here
-  accountName: string;
+/*
+export interface SignupCredentials {
+  accountId: number;
   firstName: string;
   lastName: string;
   email: string;
   username: string;
   token: string;
 }
+*/
 
 export interface SignupContext {
   accountName: string;
@@ -30,6 +30,16 @@ export interface LoginContext {
   remember?: boolean;
 };
 
+export interface LoginCredentials {
+  id: any,
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  token: string;
+}
+
+
 const credentialsKey = 'credentials';
 
 /**
@@ -40,7 +50,7 @@ const credentialsKey = 'credentials';
 export class AuthenticationService {
 
   constructor(private accountApi: AccountApi,
-    private clientApi: ClientApi) {
+    private registeredUserApi: RegisteredUserApi) {
   }
 
   /**
@@ -51,7 +61,7 @@ export class AuthenticationService {
   login(context: LoginContext): Observable<any> {
 
     //    https://github.com/mean-expert-official/loopback-sdk-builder/wiki/5.-Usage-Examples
-    return this.clientApi.login(context, 'user', context.remember);
+    return this.registeredUserApi.login(context, 'user', context.remember);
   }
 
   /**
@@ -72,7 +82,7 @@ export class AuthenticationService {
    * @return {Observable<boolean>} True if the user was logged out successfully.
    */
   logout(): Observable<boolean> {
-    return this.clientApi.logout();
+    return this.registeredUserApi.logout();
   }
 
   /**
@@ -80,7 +90,7 @@ export class AuthenticationService {
    * @return {boolean} True if the user is authenticated.
    */
   isAuthenticated(): boolean {
-    const authenticated = this.clientApi.isAuthenticated();
+    const authenticated = this.registeredUserApi.isAuthenticated();
     return authenticated;
   }
 
@@ -88,7 +98,7 @@ export class AuthenticationService {
    * Gets the user credentials.
    * @return {Credentials} The user credentials or null if the user is not authenticated.
    */
-  get credentials(): Credentials | null {
-    return this.clientApi.getCachedCurrent();
+  get credentials(): LoginCredentials | null {
+    return this.registeredUserApi.getCachedCurrent();
   }
 }

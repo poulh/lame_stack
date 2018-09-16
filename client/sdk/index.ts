@@ -49,8 +49,8 @@ import { SocketDriver } from './sockets/socket.driver';
 import { SocketConnection } from './sockets/socket.connections';
 import { RealTime } from './services/core/real.time';
 import { UserApi } from './services/custom/User';
-import { ClientApi } from './services/custom/Client';
 import { AccountApi } from './services/custom/Account';
+import { RegisteredUserApi } from './services/custom/RegisteredUser';
 /**
 * @module SDKBrowserModule
 * @description
@@ -82,8 +82,8 @@ export class SDKBrowserModule {
         SDKModels,
         RealTime,
         UserApi,
-        ClientApi,
         AccountApi,
+        RegisteredUserApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser },
         { provide: SocketDriver, useClass: SocketBrowser }

@@ -35,11 +35,11 @@
     "dataSource": "db",
     "public": false
   },
-  "Client": {
+  "Account": {
     "dataSource": "db",
     "public": true
   },
-  "Account": {
+  "RegisteredUser": {
     "dataSource": "db",
     "public": true
   }

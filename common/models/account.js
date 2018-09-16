@@ -9,16 +9,22 @@ module.exports = function (Account) {
             if (err) {
                 throw (err);
             }
+            delete credentials.accountName;
 
-            account.clients.create(credentials, function (err, client) {
+            account.registeredUsers.create(credentials, function (err, registeredUser) {
                 if (err) {
                     throw (err);
                 }
 
-                let Client = Account.app.models.Client;
+                let RegisteredUser = Account.app.models.RegisteredUser;
                 delete credentials.email;
 
-                Client.login(credentials, 'user', function (err, token) {
+                const loginCredentials = {
+                    username: credentials.username,
+                    password: credentials.password
+                };
+
+                RegisteredUser.login(loginCredentials, 'user', function (err, token) {
                     if (err) {
                         console.log(err);
                         throw (err);
@@ -34,11 +40,6 @@ module.exports = function (Account) {
     Account.remoteMethod('signup', {
         accepts: [
             { arg: 'credentials', type: 'object', http: { source: 'body' } }
-            /* { arg: 'accountName', type: 'string' },
-             { arg: 'email', type: 'string' },
-             { arg: 'username', type: 'string' },
-             { arg: 'password', type: 'string' }
-             */
         ],
         description: "Signup new Client. Create Account and adds Client to it",
         returns: { type: 'object', root: true },

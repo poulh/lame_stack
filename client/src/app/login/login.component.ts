@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }))
       .subscribe((token: AccessToken) => {
+        console.log(token);
         log.debug(`${token.user} successfully logged in`);
         this.router.navigate(['/'], { replaceUrl: true });
       }, error => {
