@@ -17,6 +17,9 @@ import { HeaderComponent } from './header/header.component';
   declarations: [
     HeaderComponent,
     ShellComponent
+  ], providers: [
+    //https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8,
+    //https://stackoverflow.com/questions/46017245/how-to-handle-unauthorized-requestsstatus-with-401-or-403-with-new-httpclient
   ]
 })
 export class ShellModule {
