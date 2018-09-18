@@ -37,7 +37,7 @@
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
-      "principalId": "$owner",
+      "principalId": "$unauthenticated",
       "permission": "ALLOW",
       "property": "signup"
     },
