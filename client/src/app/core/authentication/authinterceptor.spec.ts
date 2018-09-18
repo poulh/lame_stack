@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { AuthInterceptorService } from './auth-interceptor.service';
+import { AuthInterceptorService } from './auth.interceptor';
 
 describe('AuthInterceptorService', () => {
   beforeEach(() => {
