@@ -1,0 +1,78 @@
+<div *ngIf="user">
+  <div class="row">
+    <div class="card col-md-10 mt-2 mx-auto">
+      <div class="card-body">
+        <h4 class="card-title text-center">
+          <i class="far fa-3x fa-user-circle text-muted"></i>
+        </h4>
+
+        <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+          Username or password incorrect.
+        </div>
+
+        <label class="d-block">
+          <span translate>First Name</span>
+          <input type="text" class="form-control" [(ngModel)]="user.firstName" [placeholder]="'First Name' | translate"
+            [disabled]="isLoading" />
+
+          <small [hidden]="user.firstName.length" class="text-danger" translate>
+            First Name is required
+          </small>
+        </label>
+
+        <label class="d-block">
+          <span translate>Last Name</span>
+          <input type="text" class="form-control" [(ngModel)]="user.lastName" [placeholder]="'Last Name' | translate"
+            [disabled]="isLoading" />
+
+          <small [hidden]="user.lastName.length" class="text-danger" translate>
+            Last Name is required
+          </small>
+        </label>
+
+        <label class="d-block">
+          <span translate>Email</span>
+          <input type="text" class="form-control" [(ngModel)]="user.email" [placeholder]="'Email' | translate"
+            [disabled]="isLoading" />
+
+          <small [hidden]="user.lastName.length" class="text-danger" translate>
+            Email is required
+          </small>
+        </label>
+
+        <label class="d-block">
+          <span translate>Username</span>
+          <input type="text" class="form-control" [(ngModel)]="user.username" [placeholder]="'Username' | translate"
+            [disabled]="isLoading" />
+
+          <small [hidden]="user.lastName.length" class="text-danger" translate>
+            Username is required
+          </small>
+        </label>
+
+        <label class="d-block">
+          <button class="btn w-100" [ngClass]="noUserChanges() ? 'btn-secondary' : 'btn-primary'" (click)="updateUser()"
+            [disabled]="isLoading || noUserChanges()">
+            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+            <span translate>{{user.id ? "Update" : "Create"}} User</span>
+          </button>
+        </label>
+
+        <label class="d-block">
+          <button class="btn btn-success w-100" (click)="goBack()" [disabled]="isLoading">
+            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+            <span translate>Go Back</span>
+          </button>
+        </label>
+
+        <label *ngIf="user.id" class="d-block pt-4">
+          <button class="btn btn-danger w-100" (click)="deleteUser()" [disabled]="isLoading">
+            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+            <span translate>Delete Event</span>
+          </button>
+        </label>
+
+      </div>
+    </div>
+  </div>
+</div>

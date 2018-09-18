@@ -32,8 +32,9 @@
           </a>
           <div ngbDropdownMenu aria-labelledby="user-dropdown">
             <h6 class="dropdown-header">
-              <h6><b>{{fullName}}</b></h6>
-              <span translate>Logged in as</span> <b>{{username}}</b></h6>
+              <h6><b>{{fullName}} ({{username}})</b></h6>
+            </h6>
+            <a *ngIf="userid" class="dropdown-item" routerLink="/user/{{userid}}" translate>Edit Profile</a>
             <div class="dropdown-divider"></div>
             <button class="dropdown-item" (click)="logout()" translate>Logout</button>
           </div>
