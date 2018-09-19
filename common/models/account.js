@@ -16,6 +16,25 @@ module.exports = function (Account) {
                     throw (err);
                 }
 
+                let Role = Account.app.models.Role;
+
+                Role.findOne({ where: { name: 'admin' } }, function (err, role) {
+                    if (err) {
+                        console.log(err);
+                        throw (err);
+                    }
+                    role.principals.create({
+                        principalType: "USER",
+                        principalId: registeredUser.id
+                    }, function (err, principal) {
+                        if (err) {
+                            console.log(err);
+                            throw (err);
+                        }
+                        console.log('created admin: ', registeredUser);
+                    })
+                });
+
                 let RegisteredUser = Account.app.models.RegisteredUser;
                 delete credentials.email;
 

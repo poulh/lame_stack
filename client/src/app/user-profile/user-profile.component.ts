@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -17,7 +17,10 @@ export class UserProfileComponent implements OnInit {
   isLoading = false;
   error: string;
   oldUser: RegisteredUser;
-  user: RegisteredUser;
+  @Input() user: RegisteredUser;
+
+  @Input() currentPassword: string = "";
+  @Input() newPassword: string = "";
 
   constructor(
     protected auth: LoopBackAuth,
@@ -30,13 +33,12 @@ export class UserProfileComponent implements OnInit {
     this.getUser();
   }
 
-
   setUserModel(user: RegisteredUser) {
-
     this.user = user;
     this.oldUser = new RegisteredUser(user);
-    this.auth.setUser(user); // this updates local cache
-
+    if (this.user.id) {
+      this.auth.setUser(user); // this updates local cache
+    }
     this.isLoading = false;
   }
 
@@ -76,6 +78,15 @@ export class UserProfileComponent implements OnInit {
     this.userApi.deleteById<Event>(this.user.id).subscribe(user => {
       this.goBack();
     });
+  }
+
+  changePassword(): void {
+    this.userApi.changePassword(this.currentPassword, this.newPassword).subscribe(foo => {
+      console.log(foo);
+    }, error => {
+      console.log(`change password error: ${error}`);
+      this.error = error;
+    })
   }
 
   goBack(): void {

@@ -7,7 +7,7 @@ import { environment } from '@env/environment';
 import { Logger, I18nService, AuthenticationService } from '@app/core';
 
 import { AccessToken } from '../../../sdk';
-import { User } from '../../../sdk/models';
+import { RegisteredUser } from '../../../sdk/models';
 
 const log = new Logger('Login');
 
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         this.doLogin(this.signupForm.value);
         this.isLoading = false;
       }))
-      .subscribe((user: User) => {
+      .subscribe((user: RegisteredUser) => {
         log.debug(`${user.id} successfully signed up`);
       }, error => {
         log.debug(`Signup error: ${error}`);

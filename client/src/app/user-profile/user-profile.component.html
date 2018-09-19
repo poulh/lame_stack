@@ -11,68 +11,94 @@
         </div>
 
         <label class="d-block">
-          <span translate>First Name</span>
-          <input type="text" class="form-control" [(ngModel)]="user.firstName" [placeholder]="'First Name' | translate"
-            [disabled]="isLoading" />
-
-          <small [hidden]="user.firstName.length" class="text-danger" translate>
-            First Name is required
-          </small>
+          <span [ngClass]="user.firstName?.length ? '' : 'text-danger'" translate>First Name</span>
+          <input type="text" class="form-control" [(ngModel)]="user.firstName" [disabled]="isLoading" />
         </label>
 
         <label class="d-block">
-          <span translate>Last Name</span>
-          <input type="text" class="form-control" [(ngModel)]="user.lastName" [placeholder]="'Last Name' | translate"
-            [disabled]="isLoading" />
-
-          <small [hidden]="user.lastName.length" class="text-danger" translate>
-            Last Name is required
-          </small>
+          <span [ngClass]="user.lastName?.length ? '' : 'text-danger'" translate>Last Name</span>
+          <input type="text" class="form-control" [(ngModel)]="user.lastName" [disabled]="isLoading" />
         </label>
 
         <label class="d-block">
-          <span translate>Email</span>
-          <input type="text" class="form-control" [(ngModel)]="user.email" [placeholder]="'Email' | translate"
-            [disabled]="isLoading" />
-
-          <small [hidden]="user.lastName.length" class="text-danger" translate>
-            Email is required
-          </small>
+          <span [ngClass]="user.email?.length ? '' : 'text-danger'" translate>Email</span>
+          <input type="text" class="form-control" [(ngModel)]="user.email" [disabled]="isLoading" />
         </label>
 
         <label class="d-block">
-          <span translate>Username</span>
-          <input type="text" class="form-control" [(ngModel)]="user.username" [placeholder]="'Username' | translate"
-            [disabled]="isLoading" />
+          <span [ngClass]="user.username?.length ? '' : 'text-danger'" translate>Username</span>
+          <input type="text" class="form-control" [(ngModel)]="user.username" [disabled]="isLoading" />
+        </label>
 
-          <small [hidden]="user.lastName.length" class="text-danger" translate>
-            Username is required
-          </small>
+        <label *ngIf="!user.id" class="d-block">
+          <span [ngClass]="user.password?.length ? '' : 'text-danger'" translate>Password</span>
+          <input type="password" class="form-control" [(ngModel)]="user.password" [disabled]="isLoading" />
         </label>
 
         <label class="d-block">
-          <button class="btn w-100" [ngClass]="noUserChanges() ? 'btn-secondary' : 'btn-primary'" (click)="updateUser()"
+          <span translate>&nbsp;</span>
+          <button class="btn w-100" [ngClass]="noUserChanges() ? 'btn-secondary' : 'btn-primary'" type="submit"
             [disabled]="isLoading || noUserChanges()">
             <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-            <span translate>{{user.id ? "Update" : "Create"}} User</span>
+            <span translate>{{user.id ? "Update" : "Create "}} User</span>
           </button>
         </label>
 
+        <div class="d-block">
+          <span translate>&nbsp;</span>
+          <label *ngIf="user.id" class="d-block">
+            <button class="btn btn-danger w-100" (click)="deleteUser()" [disabled]="isLoading">
+              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+              <span translate>Delete User</span>
+            </button>
+          </label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="user.id" class="row mt-3">
+    <div class="card col-md-10 mt-2 mx-auto">
+      <div class="card-body">
+        <h4 class="card-title text-center">
+          <i class="far fa-3x fa-key text-muted"></i>
+        </h4>
+
         <label class="d-block">
+          <span translate>Current Password</span>
+          <input type="password" class="form-control" [(ngModel)]="currentPassword" [disabled]="isLoading" />
+        </label>
+
+        <label class="d-block">
+          <span translate>New Password</span>
+          <input type="password" class="form-control" [(ngModel)]="newPassword" [disabled]="isLoading" />
+        </label>
+
+        <label class="d-block">
+          <span translate>&nbsp;</span>
+          <button class="btn btn-primary w-100" (click)="changePassword()" [disabled]="isLoading || (!currentPassword.length || !newPassword.length || (currentPassword == newPassword))">
+            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+            <span translate>Change Password</span>
+          </button>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card-body">
+      <div class=" col-md-10 mt-2 mx-auto">
+        <label class="d-block">
+          <span translate>&nbsp;</span>
           <button class="btn btn-success w-100" (click)="goBack()" [disabled]="isLoading">
             <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
             <span translate>Go Back</span>
           </button>
         </label>
 
-        <label *ngIf="user.id" class="d-block pt-4">
-          <button class="btn btn-danger w-100" (click)="deleteUser()" [disabled]="isLoading">
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-            <span translate>Delete Event</span>
-          </button>
-        </label>
-
       </div>
     </div>
   </div>
+
 </div>

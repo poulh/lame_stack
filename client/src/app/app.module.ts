@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '@env/environment';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
+import { AdminModule } from './admin/admin.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
@@ -29,6 +30,7 @@ import { SDKBrowserModule } from '../../sdk';
     CoreModule,
     SharedModule,
     ShellModule,
+    AdminModule,
     UserProfileModule,
     HomeModule,
     AboutModule,

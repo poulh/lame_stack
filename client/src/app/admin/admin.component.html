@@ -1,0 +1,35 @@
+<div class="my-3 p-3 bg-white rounded box-shadow">
+
+  <div class="row border-bottom border-gray pb-2 mb-0">
+
+    <div class="col-md-10 col-sm-9 mt-2">
+      <h4 class="pb-2 mb-0">Users</h4>
+      <!-- input type="text" class="form-control" [placeholder]="'Search Events' " [disabled]="isLoading" /-->
+    </div>
+
+    <div class="col-md-2 col-sm-3 mt-2 ">
+      <a class="btn btn-primary w-100" routerLink="/user">Create User</a>
+    </div>
+
+  </div>
+
+  <div *ngFor="let user of users" class="media text-muted pt-3">
+
+    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+
+      <div class="d-flex justify-content-between align-items-center w-100">
+
+        <strong class="text-gray-dark">
+          {{user.firstName}} {{user.lastName}}
+
+        </strong>
+        <div>
+          <a class="btn btn-info" routerLink="/user/{{user.id}}">Edit User</a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
