@@ -37,7 +37,7 @@
 
         <label class="d-block">
           <span translate>&nbsp;</span>
-          <button class="btn w-100" [ngClass]="noUserChanges() ? 'btn-secondary' : 'btn-primary'" type="submit"
+          <button class="btn w-100" [ngClass]="noUserChanges() ? 'btn-secondary' : 'btn-primary'" (click)="updateUser()"
             [disabled]="isLoading || noUserChanges()">
             <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
             <span translate>{{user.id ? "Update" : "Create "}} User</span>
