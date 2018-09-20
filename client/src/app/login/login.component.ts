@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       .subscribe((token: AccessToken) => {
         console.log(token);
         log.debug(`${token.user} successfully logged in`);
-        this.router.navigate(['/'], { replaceUrl: true });
+        this.router.navigate(['/home'], { replaceUrl: true });
       }, error => {
         log.debug(`Login error: ${error}`);
         this.error = error;

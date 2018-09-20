@@ -33,10 +33,10 @@ export class UserProfileComponent implements OnInit {
     this.getUser();
   }
 
-  setUserModel(user: RegisteredUser) {
+  setUserModel(user: RegisteredUser, setLocal: boolean) {
     this.user = user;
     this.oldUser = new RegisteredUser(user);
-    if (this.user.id) {
+    if (setLocal) {
       this.auth.setUser(user); // this updates local cache
     }
     this.isLoading = false;
@@ -44,15 +44,17 @@ export class UserProfileComponent implements OnInit {
 
   getUser(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.isLoading = true;
+    const updateLoggedInUser = (id != null);
 
+    this.isLoading = true;
+
+    if (updateLoggedInUser) {
       this.userApi.findById(id).subscribe((user: RegisteredUser) => {
-        this.setUserModel(user);
+        this.setUserModel(user, updateLoggedInUser);
       })
     } else {
       let user = new RegisteredUser();
-      this.setUserModel(user);
+      this.setUserModel(user, updateLoggedInUser);
     }
   }
 
@@ -63,13 +65,14 @@ export class UserProfileComponent implements OnInit {
 
   updateUser(): void {
     this.isLoading = true;
-    if (this.user.id) {
+    const updateLoggedInUser = (this.user.id != null);
+    if (updateLoggedInUser) {
       this.userApi.patchAttributes(this.user.id, this.user).subscribe((user: RegisteredUser) => {
-        return this.setUserModel(user);
+        return this.setUserModel(user, updateLoggedInUser);
       });
     } else {
-      this.userApi.create(this.user).subscribe(user => {
-        return this.setUserModel(user);
+      this.userApi.create(this.user).subscribe((user: RegisteredUser) => {
+        return this.setUserModel(user, updateLoggedInUser);
       });
     }
   }
