@@ -2,15 +2,57 @@
 
 module.exports = function (RegisteredUser) {
 
-    RegisteredUser.getAuthenticatedUserRoles = function (req, cb) {
-        const id = req.accessToken.userId;
+    RegisteredUser.hasRole = function (role, req, cb) {
+        const userId = req.accessToken.userId;
 
-        /*
-        if (req.headers && req.headers.access_token) {
-            tokenId = req.headers.access_token;
-            console.log('Token: ' + tokenId);
-        }
-        */
+        const roleFilter = {
+            where: {
+                name: role
+            }
+        };
+
+        let Role = RegisteredUser.app.models.Role;
+        Role.findOne(roleFilter, function (err, role) {
+            if (err) {
+                console.log(err);
+                throw (err);
+            }
+
+            if (role) {
+                const principalFilter = {
+                    where: {
+                        principalType: "USER",
+                        principalId: userId
+                    }
+                };
+
+                role.principals.findOne(principalFilter, function (err, principal) {
+
+                    if (err) {
+                        console.log(err);
+                        throw (err);
+                    }
+                    cb(null, principal != null);
+                });
+            } else {
+                //role does not exist, so user cannot be in it
+                cb(null, false)
+            }
+        });
+    }
+
+    RegisteredUser.remoteMethod('hasRole', {
+        accepts: [
+            { arg: 'name', type: 'string', required: true },
+            { arg: 'req', type: 'object', 'http': { source: 'req' } },
+        ],
+        description: "Returns whether authenticated User has Role",
+        returns: { type: 'boolean', root: true },
+        http: { path: '/hasRole', verb: 'get' }
+    });
+
+    RegisteredUser.getAuthenticatedUserRoles = function (req, cb) {
+        const userId = req.accessToken.userId;
 
         let Role = RegisteredUser.app.models.Role;
 
@@ -28,7 +70,7 @@ module.exports = function (RegisteredUser) {
 
             const filter = {
                 where: {
-                    principalId: id,
+                    principalId: userId,
                     principalType: 'USER'
                 }
             };
