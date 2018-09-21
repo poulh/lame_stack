@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService, I18nService } from '@app/core';
+import { RoleChecker } from '@app/shared';
+
 import { RegisteredUserApi } from '../../../../sdk';
 
 @Component({
@@ -11,19 +13,22 @@ import { RegisteredUserApi } from '../../../../sdk';
 })
 export class HeaderComponent implements OnInit {
 
-  isAdmin: boolean;
   accountName: string;
+
+  roleChecker: RoleChecker;
 
   menuHidden = true;
 
   constructor(private router: Router,
     private authenticationService: AuthenticationService,
     private registeredUserApi: RegisteredUserApi,
-    private i18nService: I18nService) { }
+    private i18nService: I18nService) {
+
+    this.roleChecker = new RoleChecker(registeredUserApi);
+  }
 
   ngOnInit() {
     this.getAccount();
-    this.getIsAdmin();
   }
 
   toggleMenu() {
@@ -45,12 +50,6 @@ export class HeaderComponent implements OnInit {
 
   get languages(): string[] {
     return this.i18nService.supportedLanguages;
-  }
-
-  getIsAdmin(): void {
-    this.registeredUserApi.hasRole("admin").subscribe((isAdmin: boolean) => {
-      this.isAdmin = isAdmin;
-    });
   }
 
   get fullName(): string | null {

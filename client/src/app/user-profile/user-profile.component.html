@@ -47,7 +47,7 @@
         <div class="d-block">
           <span translate>&nbsp;</span>
           <label *ngIf="user.id" class="d-block">
-            <button class="btn btn-danger w-100" (click)="deleteUser()" [disabled]="isLoading">
+            <button class="btn btn-danger w-100" (click)="deleteUser()" [hidden]="!canDelete()" [disabled]="isLoading">
               <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
               <span translate>Delete User</span>
             </button>

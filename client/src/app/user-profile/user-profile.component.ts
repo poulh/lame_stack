@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { AuthenticationService } from '@app/core';
+import { RoleChecker } from '@app/shared';
+
 import { LoopBackAuth } from '../../../sdk/services/core';
 import { RegisteredUser } from '../../../sdk/models';
 import { RegisteredUserApi } from '../../../sdk/services';
@@ -14,6 +17,8 @@ import { RegisteredUserApi } from '../../../sdk/services';
 
 export class UserProfileComponent implements OnInit {
 
+  roleChecker: RoleChecker;
+
   isLoading = false;
   error: string;
   oldUser: RegisteredUser;
@@ -25,9 +30,11 @@ export class UserProfileComponent implements OnInit {
   constructor(
     protected auth: LoopBackAuth,
     private route: ActivatedRoute,
+    private authenticationService: AuthenticationService,
     private userApi: RegisteredUserApi,
-
-    private location: Location) { }
+    private location: Location) {
+    this.roleChecker = new RoleChecker(userApi);
+  }
 
   ngOnInit() {
     this.getUser();
@@ -44,18 +51,22 @@ export class UserProfileComponent implements OnInit {
 
   getUser(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    const updateLoggedInUser = (id != null);
 
     this.isLoading = true;
 
-    if (updateLoggedInUser) {
+    if (id != null) {
       this.userApi.findById(id).subscribe((user: RegisteredUser) => {
-        this.setUserModel(user, updateLoggedInUser);
+        this.setUserModel(user, this.editingSelf());
       })
     } else {
       let user = new RegisteredUser();
-      this.setUserModel(user, updateLoggedInUser);
+      this.setUserModel(user, this.editingSelf());
     }
+  }
+
+  editingSelf(): boolean {
+    const credentials = this.authenticationService.credentials;
+    return this.user ? (credentials.id == this.user.id) : false;
   }
 
   noUserChanges(): boolean {
@@ -65,16 +76,26 @@ export class UserProfileComponent implements OnInit {
 
   updateUser(): void {
     this.isLoading = true;
-    const updateLoggedInUser = (this.user.id != null);
-    if (updateLoggedInUser) {
+
+    if (this.user.id != null) {
       this.userApi.patchAttributes(this.user.id, this.user).subscribe((user: RegisteredUser) => {
-        return this.setUserModel(user, updateLoggedInUser);
+        return this.setUserModel(user, this.editingSelf());
       });
     } else {
       this.userApi.create(this.user).subscribe((user: RegisteredUser) => {
-        return this.setUserModel(user, updateLoggedInUser);
+        return this.setUserModel(user, this.editingSelf());
       });
     }
+  }
+
+  canDelete(): boolean {
+
+    //you cannot delete yourself
+    if (this.editingSelf()) {
+      return false;
+    }
+
+    return this.roleChecker.is("admin");
   }
 
   deleteUser(): void {
