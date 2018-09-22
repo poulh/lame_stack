@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { TranslateModule } from '@ngx-translate/core';
 
+import { SharedModule } from '@app/shared';
+
 import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { UserProfileComponent } from './user-profile.component';
 
@@ -12,7 +14,8 @@ import { UserProfileComponent } from './user-profile.component';
     CommonModule,
     FormsModule,
     TranslateModule,
-    UserProfileRoutingModule
+    UserProfileRoutingModule,
+    SharedModule
   ],
   declarations: [UserProfileComponent]
 })

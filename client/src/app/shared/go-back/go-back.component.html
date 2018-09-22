@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="card-body">
+    <div class=" col-md-10 mt-2 mx-auto">
+      <label class="d-block">
+        <span translate>&nbsp;</span>
+        <button class="btn btn-success w-100" (click)="goBack()" [disabled]="loading">
+          <i class="fas fa-cog fa-spin" [hidden]="!loading"></i>
+          <span translate><ng-content></ng-content></span>
+        </button>
+      </label>
+    </div>
+  </div>
+</div>

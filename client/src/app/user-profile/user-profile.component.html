@@ -84,20 +84,6 @@
       </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="card-body">
-      <div class=" col-md-10 mt-2 mx-auto">
-        <label class="d-block">
-          <span translate>&nbsp;</span>
-          <button class="btn btn-success w-100" (click)="goBack()" [disabled]="isLoading">
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-            <span translate>Go Back</span>
-          </button>
-        </label>
-
-      </div>
-    </div>
-  </div>
+  <go-back-button [loading]="isLoading">Go Back</go-back-button>
 
 </div>
