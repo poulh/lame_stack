@@ -37,17 +37,16 @@
 
         <label class="d-block">
           <span translate>&nbsp;</span>
-          <button class="btn w-100" [ngClass]="noUserChanges() ? 'btn-secondary' : 'btn-primary'" (click)="updateUser()"
-            [disabled]="isLoading || noUserChanges()">
+          <button class="btn w-100" [ngClass]="noUserChanges() ? 'btn-secondary' : 'btn-primary'" (click)="updateUser()" [disabled]="isLoading || noUserChanges()">
             <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
             <span translate>{{user.id ? "Update" : "Create "}} User</span>
           </button>
         </label>
 
-        <div class="d-block">
+        <div class="d-block" *ngIf="canDelete()">
           <span translate>&nbsp;</span>
           <label *ngIf="user.id" class="d-block">
-            <button class="btn btn-danger w-100" (click)="deleteUser()" [hidden]="!canDelete()" [disabled]="isLoading">
+            <button class="btn btn-danger w-100" (click)="deleteUser()" [disabled]="isLoading">
               <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
               <span translate>Delete User</span>
             </button>
