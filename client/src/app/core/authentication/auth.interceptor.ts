@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { tap, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from '@app/core';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
