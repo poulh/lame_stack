@@ -14,11 +14,18 @@ import { LoopBackConfig } from '../sdk';
 
 if (environment.production) {
   enableProdMode();
+  const loc = window.location;
+  console.log(loc);
+  let uri = loc.protocol + "//" + loc.hostname;
+  if (loc.port != "80" && loc.port != "") {
+    uri = uri + ":" + loc.port;
+  }
+  console.log(uri);
+  LoopBackConfig.setBaseURL(uri);
+} else {
+  LoopBackConfig.setBaseURL("http://localhost:3000");
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));
 
-
-
-LoopBackConfig.setBaseURL("http://localhost:3000");
