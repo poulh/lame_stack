@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  mongodb:
+    image: 'mongo'
+    ports:
+      - '27017:27017'
+  clubhouse:
+    depends_on:
+      - mongodb
+    image: '${REPO_URL}' #SET REPO_URL BEFORE RUNNING THIS DOCKER_COMPOSE. ITS WHERE YOU DOCKER-PUSHED YOUR IMAGE
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=${DB_HOST} #SET DB_HOST BEFORE RUNING THIS DOCKER_COMPOSE. IT THES SETS DB_HOST **INSIDE** DOCKER INSTANCE
+      - DB_NAME=clubhouse
+    ports:
+      - '3000:3000'
