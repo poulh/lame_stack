@@ -11,8 +11,8 @@ export interface RegisteredUserInterface {
   "username"?: string;
   "email": string;
   "emailVerified"?: boolean;
-  "id"?: number;
-  "accountId"?: number;
+  "id"?: any;
+  "accountId"?: any;
   "password"?: string;
   accessTokens?: any[];
   account?: Account;
@@ -25,8 +25,8 @@ export class RegisteredUser implements RegisteredUserInterface {
   "username": string;
   "email": string;
   "emailVerified": boolean;
-  "id": number;
-  "accountId": number;
+  "id": any;
+  "accountId": any;
   "password": string;
   accessTokens: any[];
   account: Account;
@@ -89,11 +89,11 @@ export class RegisteredUser implements RegisteredUserInterface {
         },
         "id": {
           name: 'id',
-          type: 'number'
+          type: 'any'
         },
         "accountId": {
           name: 'accountId',
-          type: 'number'
+          type: 'any'
         },
         "password": {
           name: 'password',

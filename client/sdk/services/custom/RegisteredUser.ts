@@ -550,7 +550,7 @@ export class RegisteredUserApi extends BaseLoopBackApi {
   }
 
   /**
-   * Get array of Roles for authenticated User
+   * Returns whether authenticated User has Role
    *
    * @param {string} name 
    *
