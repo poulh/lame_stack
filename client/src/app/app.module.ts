@@ -29,9 +29,9 @@ import { SDKBrowserModule } from '../../sdk';
     CoreModule,
     SharedModule,
     ShellModule,
-    UserProfileModule,
-    HomeModule,
+    HomeModule, //HomeModule ( or whatever the default tab is ) needs to be right after Shell, so its routing rules get hit first
     AboutModule,
+    UserProfileModule,
     LoginModule,
     AppRoutingModule,
     SDKBrowserModule.forRoot()
