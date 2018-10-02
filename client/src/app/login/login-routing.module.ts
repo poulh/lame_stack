@@ -5,7 +5,9 @@ import { extract } from '@app/core';
 import { LoginComponent } from './login.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, data: { title: extract('Login') } }
+  { path: 'signup', component: LoginComponent, data: { title: extract('Signup') } },
+  { path: 'login', component: LoginComponent, data: { title: extract('Login') } },
+  { path: 'logout', component: LoginComponent, data: { title: extract('Login') } }
 ];
 
 @NgModule({

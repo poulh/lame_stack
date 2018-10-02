@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
@@ -18,6 +19,7 @@ const log = new Logger('Login');
 })
 export class LoginComponent implements OnInit {
 
+  displaySignup: boolean;
   version: string = environment.version;
   error: string;
   signupForm: FormGroup;
@@ -25,9 +27,12 @@ export class LoginComponent implements OnInit {
   isLoading = false;
 
   constructor(private router: Router,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private i18nService: I18nService,
     private authenticationService: AuthenticationService) {
+
+    this.displaySignup = this.route.snapshot.url[0].path === "signup";
   }
 
   ngOnInit() {
@@ -72,6 +77,10 @@ export class LoginComponent implements OnInit {
         log.debug(`Signup error: ${error}`);
         this.error = error;
       });
+  }
+
+  setDisplaySignup(signup: boolean): void {
+    this.displaySignup = signup;
   }
 
   setLanguage(language: string) {

@@ -15,9 +15,10 @@
       </div>
     </div>
     <div class="container">
-      <!-- Signup Form-->
       <div class="row">
-        <div class="card col-md-4 mt-2 mx-auto">
+
+        <!-- Signup Form-->
+        <div *ngIf="displaySignup" class="card col-md-4 mt-2 mx-auto">
           <div class="card-body">
             <h4 class="card-title text-center">
               <i class="far fa-3x fa-pencil-alt text-muted"></i>
@@ -28,52 +29,56 @@
               </div>
               <div class="form-group">
                 <label class="d-block">
-                  <input type="text" class="form-control" formControlName="accountName" autocomplete="org" [placeholder]="'Account Name' | translate"
-                  />
+                  <input type="text" class="form-control" formControlName="accountName" autocomplete="org"
+                    [placeholder]="'Account Name' | translate" />
                   <span hidden translate>Account Name</span>
-                  <small [hidden]="signupForm.controls.accountName.valid || signupForm.controls.accountName.untouched" class="text-danger"
-                    translate>
+                  <small [hidden]="signupForm.controls.accountName.valid || signupForm.controls.accountName.untouched"
+                    class="text-danger" translate>
                     Account Name is required
                   </small>
                 </label>
                 <label class="d-block">
-                  <input type="text" class="form-control" formControlName="firstName" autocomplete="given-name" [placeholder]="'First Name' | translate"
-                  />
+                  <input type="text" class="form-control" formControlName="firstName" autocomplete="given-name"
+                    [placeholder]="'First Name' | translate" />
                   <span hidden translate>First Name</span>
-                  <small [hidden]="signupForm.controls.firstName.valid || signupForm.controls.firstName.untouched" class="text-danger" translate>
+                  <small [hidden]="signupForm.controls.firstName.valid || signupForm.controls.firstName.untouched"
+                    class="text-danger" translate>
                     First Name is required
                   </small>
                 </label>
                 <label class="d-block">
-                  <input type="text" class="form-control" formControlName="lastName" autocomplete="family-name" [placeholder]="'Last Name' | translate"
-                  />
+                  <input type="text" class="form-control" formControlName="lastName" autocomplete="family-name"
+                    [placeholder]="'Last Name' | translate" />
                   <span hidden translate>Last Name</span>
-                  <small [hidden]="signupForm.controls.lastName.valid || signupForm.controls.lastName.untouched" class="text-danger" translate>
+                  <small [hidden]="signupForm.controls.lastName.valid || signupForm.controls.lastName.untouched" class="text-danger"
+                    translate>
                     Last Name is required
                   </small>
                 </label>
 
                 <label class="d-block">
-                  <input type="text" class="form-control" formControlName="email" autocomplete="email" [placeholder]="'Email' | translate"
-                  />
+                  <input type="text" class="form-control" formControlName="email" autocomplete="email" [placeholder]="'Email' | translate" />
                   <span hidden translate>Email</span>
-                  <small [hidden]="signupForm.controls.email.valid || signupForm.controls.email.untouched" class="text-danger" translate>
+                  <small [hidden]="signupForm.controls.email.valid || signupForm.controls.email.untouched" class="text-danger"
+                    translate>
                     Email is required
                   </small>
                 </label>
                 <label class="d-block">
-                  <input type="text" class="form-control" formControlName="username" autocomplete="username" [placeholder]="'Username' | translate"
-                  />
+                  <input type="text" class="form-control" formControlName="username" autocomplete="username"
+                    [placeholder]="'Username' | translate" />
                   <span hidden translate>Username</span>
-                  <small [hidden]="signupForm.controls.username.valid || signupForm.controls.username.untouched" class="text-danger" translate>
+                  <small [hidden]="signupForm.controls.username.valid || signupForm.controls.username.untouched" class="text-danger"
+                    translate>
                     Username is required
                   </small>
                 </label>
                 <label class="d-block">
-                  <input type="password" class="form-control" formControlName="password" autocomplete="current-password" [placeholder]="'Password' | translate"
-                    required/>
+                  <input type="password" class="form-control" formControlName="password" autocomplete="current-password"
+                    [placeholder]="'Password' | translate" required />
                   <span hidden translate>Password</span>
-                  <small [hidden]="signupForm.controls.password.valid || signupForm.controls.password.untouched" class="text-danger" translate>
+                  <small [hidden]="signupForm.controls.password.valid || signupForm.controls.password.untouched" class="text-danger"
+                    translate>
                     Password is required
                   </small>
                 </label>
@@ -84,16 +89,23 @@
                   </label>
                 </div>
               </div>
-              <button class="btn btn-danger w-100" type="submit" [disabled]="signupForm.invalid || isLoading">
-                <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-                <span translate>Signup</span>
-              </button>
+              <label class="d-block">
+                <button class="btn btn-danger w-100" type="submit" [disabled]="signupForm.invalid || isLoading">
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                  <span translate>Signup</span>
+                </button>
+              </label>
+              <label class="d-block mt-3">
+                <p class="text-center" translate>Have an account?</p>
+
+                <a class="btn btn-primary w-100" routerLink="/login"><span translate>Login</span></a>
+              </label>
             </form>
           </div>
         </div>
         <!-- End Signup Form-->
         <!-- Login Form-->
-        <div class="card col-md-4 mt-2 mx-auto">
+        <div *ngIf="!displaySignup" class="card col-md-4 mt-2 mx-auto">
           <div class="card-body">
             <h4 class="card-title text-center">
               <i class="far fa-3x fa-user-circle text-muted"></i>
@@ -104,18 +116,20 @@
               </div>
               <div class="form-group">
                 <label class="d-block">
-                  <input type="text" class="form-control" formControlName="username" autocomplete="username" [placeholder]="'Username' | translate"
-                  />
+                  <input type="text" class="form-control" formControlName="username" autocomplete="username"
+                    [placeholder]="'Username' | translate" />
                   <span hidden translate>Username</span>
-                  <small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched" class="text-danger" translate>
+                  <small [hidden]="loginForm.controls.username.valid || loginForm.controls.username.untouched" class="text-danger"
+                    translate>
                     Username is required
                   </small>
                 </label>
                 <label class="d-block">
-                  <input type="password" class="form-control" formControlName="password" autocomplete="current-password" [placeholder]="'Password' | translate"
-                    required/>
+                  <input type="password" class="form-control" formControlName="password" autocomplete="current-password"
+                    [placeholder]="'Password' | translate" required />
                   <span hidden translate>Password</span>
-                  <small [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched" class="text-danger" translate>
+                  <small [hidden]="loginForm.controls.password.valid || loginForm.controls.password.untouched" class="text-danger"
+                    translate>
                     Password is required
                   </small>
                 </label>
@@ -126,10 +140,16 @@
                   </label>
                 </div>
               </div>
-              <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid || isLoading">
-                <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-                <span translate>Login</span>
-              </button>
+              <label class="d-block">
+                <button class="btn btn-success w-100" type="submit" [disabled]="loginForm.invalid || isLoading">
+                  <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                  <span translate>Login</span>
+                </button>
+              </label>
+              <label class="d-block mt-3">
+                <p class="text-center" translate>Don't have an account?</p>
+                <a class="btn btn-primary w-100" routerLink="/signup"><span translate>Signup</span></a>
+              </label>
             </form>
           </div>
         </div>
