@@ -111,7 +111,7 @@ export class UserProfileComponent implements OnInit {
 
   setUserRoleForm(id: any): void {
     this.setLoading(true);
-    this.userRoleValues = {};
+    //  this.userRoleValues = {};
     this.userApi.getRoles(id)
       .pipe(finalize(() => {
         this.setLoading(false);
