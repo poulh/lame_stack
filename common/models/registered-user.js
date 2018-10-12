@@ -99,4 +99,83 @@ module.exports = function (RegisteredUser) {
         returns: { type: 'array', root: true },
         http: { path: '/roles', verb: 'get' }
     });
+
+
+    RegisteredUser.patchOrCreateWithRoles = function (credentials, cb) {
+
+        const roles = credentials.roles;
+        console.log(roles);
+        delete credentials.roles;
+
+        RegisteredUser.upsert(credentials, function (err, registeredUser) {
+            if (err) {
+                console.log("CREATE USER ERROR");
+                console.log(err);
+                cb(err, null);
+            }
+
+            /*
+            let Role = RegisteredUser.app.models.Role;
+            for (var role in roles) {
+                console.log(role);
+                Role.findOne({ where: { name: role } }, function (err, role) {
+                    if (err) {
+                        console.log(err);
+                        cb(err, null);
+                    }
+
+                    if (roles[role] == true) {
+                        role.principals.create({
+                            principalType: "USER",
+                            principalId: registeredUser.id
+                        }, function (err, principal) {
+                            if (err) {
+                                console.log("create role principal error");
+                                console.log(err);
+                                cb(err, null);
+                            }
+                            console.log('created role: ', role);
+                        });
+                    } else {
+                        role.principals.destroyAll({
+                            principalType: "USER",
+                            principalId: registeredUser.id
+                        }, function (err, principal) {
+                            if (err) {
+                                console.log("destroyed role principal error");
+                                console.log(err);
+                                cb(err, null);
+                            }
+                            console.log('destroyed role: ', principal);
+                        });
+                    }
+
+                });
+
+            }
+            */
+            cb(null, registeredUser);
+        });
+
+    };
+
+    RegisteredUser.remoteMethod('patchOrCreateWithRoles', {
+        accepts: [
+            { arg: 'credentials', type: 'object', http: { source: 'body' } },
+        ],
+        description: 'create or patch user with roles',
+        returns: { type: 'object', root: true },
+        http: { path: '/patchOrCreateWithRoles', verb: 'post' }
+    });
+
+    RegisteredUser.beforeRemote('patchOrCreateWithRoles', function (context, modelInstance, next) {
+        const accessToken = context.req.accessToken;
+        const userId = accessToken.userId;
+
+        RegisteredUser.findById(userId, function (err, user) {
+            let body = context.req.body;
+            body = Object.assign(body, { accountId: user.accountId });
+            next();
+        });
+    });
 };

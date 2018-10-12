@@ -16,6 +16,7 @@ export interface RegisteredUserInterface {
   "password"?: string;
   accessTokens?: any[];
   account?: Account;
+  roles?: any[];
 }
 
 export class RegisteredUser implements RegisteredUserInterface {
@@ -30,6 +31,7 @@ export class RegisteredUser implements RegisteredUserInterface {
   "password": string;
   accessTokens: any[];
   account: Account;
+  roles: any[];
   constructor(data?: RegisteredUserInterface) {
     Object.assign(this, data);
   }
@@ -116,6 +118,16 @@ export class RegisteredUser implements RegisteredUserInterface {
           relationType: 'belongsTo',
                   keyFrom: 'accountId',
           keyTo: 'id'
+        },
+        roles: {
+          name: 'roles',
+          type: 'any[]',
+          model: '',
+          relationType: 'hasMany',
+          modelThrough: 'RoleMapping',
+          keyThrough: 'roleId',
+          keyFrom: 'id',
+          keyTo: 'principalId'
         },
       }
     }

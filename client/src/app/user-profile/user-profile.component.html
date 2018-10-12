@@ -1,51 +1,78 @@
-<div *ngIf="user">
+<div>
   <div class="row">
     <div class="card col-md-10 mt-2 mx-auto">
       <div class="card-body">
         <h4 class="card-title text-center">
           <i class="far fa-3x fa-user-circle text-muted"></i>
         </h4>
+        <form (ngSubmit)="updateOrCreateUser()" [formGroup]="userForm" novalidate>
+          <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+            Username or password incorrect.
+          </div>
+          <div class="form-group">
 
-        <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
-          Username or password incorrect.
-        </div>
+            <div *ngIf="userForm.controls.id.value">
+              <label class="d-block">
+                <input type="hidden" class="form-control" formControlName="id" />
+              </label>
 
-        <label class="d-block">
-          <span [ngClass]="user.firstName?.length ? '' : 'text-danger'" translate>First Name</span>
-          <input type="text" class="form-control" [(ngModel)]="user.firstName" [disabled]="isLoading" />
-        </label>
+              <label class="d-block">
+                <input type="hidden" class="form-control" formControlName="accountId" />
+              </label>
+            </div>
 
-        <label class="d-block">
-          <span [ngClass]="user.lastName?.length ? '' : 'text-danger'" translate>Last Name</span>
-          <input type="text" class="form-control" [(ngModel)]="user.lastName" [disabled]="isLoading" />
-        </label>
+            <label class="d-block">
+              <span [ngClass]="(userForm.controls.firstName.valid || userForm.controls.firstName.untouched ) ? '' : 'text-danger'"
+                translate>First Name</span>
+              <input type="text" class="form-control" formControlName="firstName" />
+            </label>
 
-        <label class="d-block">
-          <span [ngClass]="user.email?.length ? '' : 'text-danger'" translate>Email</span>
-          <input type="text" class="form-control" [(ngModel)]="user.email" [disabled]="isLoading" />
-        </label>
+            <label class="d-block">
+              <span [ngClass]="(userForm.controls.lastName.valid || userForm.controls.lastName.untouched ) ? '' : 'text-danger'"
+                translate>Last Name</span>
+              <input type="text" class="form-control" formControlName="lastName" />
+            </label>
 
-        <label class="d-block">
-          <span [ngClass]="user.username?.length ? '' : 'text-danger'" translate>Username</span>
-          <input type="text" class="form-control" [(ngModel)]="user.username" [disabled]="isLoading" />
-        </label>
+            <label class="d-block">
+              <span [ngClass]="(userForm.controls.email.valid || userForm.controls.email.untouched ) ? '' : 'text-danger'"
+                translate>Email</span>
+              <input type="text" class="form-control" formControlName="email" />
+            </label>
 
-        <label *ngIf="!user.id" class="d-block">
-          <span [ngClass]="user.password?.length ? '' : 'text-danger'" translate>Password</span>
-          <input type="password" class="form-control" [(ngModel)]="user.password" [disabled]="isLoading" />
-        </label>
+            <label class="d-block">
+              <span [ngClass]="(userForm.controls.username.valid || userForm.controls.username.untouched ) ? '' : 'text-danger'"
+                translate>Username</span>
+              <input type="text" class="form-control" formControlName="username" />
+            </label>
 
-        <label class="d-block">
-          <span translate>&nbsp;</span>
-          <button class="btn w-100" [ngClass]="noUserChanges() ? 'btn-secondary' : 'btn-primary'" (click)="updateUser()" [disabled]="isLoading || noUserChanges()">
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-            <span translate>{{user.id ? "Update" : "Create "}} User</span>
-          </button>
-        </label>
+            <label *ngIf="!userForm.controls.id.value" class="d-block">
+              <span [ngClass]="(userForm.controls.password.valid || userForm.controls.password.untouched ) ? '' : 'text-danger'"
+                translate>Password</span>
+              <input type="password" class="form-control" formControlName="password" />
+            </label>
+
+            <form *ngIf="false" [formGroup]="userRoleForm" novalidate>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input" formControlName="admin" />
+                  <span translate>Make Admin</span>
+                </label>
+              </div>
+            </form>
+
+            <label class="d-block">
+              <span translate>&nbsp;</span>
+              <button class="btn btn-primary w-100" type="submit" [disabled]="userForm.pristine || userForm.invalid || isLoading">
+                <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                <span translate>{{userForm.controls.id.value ? "Update" : "Create "}} User</span>
+              </button>
+            </label>
+          </div>
+        </form>
 
         <div class="d-block" *ngIf="canDelete()">
           <span translate>&nbsp;</span>
-          <label *ngIf="user.id" class="d-block">
+          <label *ngIf="userForm.controls.id" class="d-block">
             <button class="btn btn-danger w-100" (click)="deleteUser()" [disabled]="isLoading">
               <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
               <span translate>Delete User</span>
@@ -57,30 +84,35 @@
     </div>
   </div>
 
-  <div *ngIf="user.id" class="row mt-3">
+  <div *ngIf="userForm.controls.id" class="row mt-3">
     <div class="card col-md-10 mt-2 mx-auto">
       <div class="card-body">
         <h4 class="card-title text-center">
           <i class="far fa-3x fa-key text-muted"></i>
         </h4>
 
-        <label class="d-block">
-          <span translate>Current Password</span>
-          <input type="password" class="form-control" [(ngModel)]="currentPassword" [disabled]="isLoading" />
-        </label>
+        <form (ngSubmit)="changePassword()" [formGroup]="passwordForm" novalidate>
 
-        <label class="d-block">
-          <span translate>New Password</span>
-          <input type="password" class="form-control" [(ngModel)]="newPassword" [disabled]="isLoading" />
-        </label>
+          <label class="d-block">
+            <span [ngClass]="(passwordForm.controls.currentPassword.valid || passwordForm.controls.currentPassword.untouched ) ? '' : 'text-danger'"
+              translate>Current Password</span>
+            <input type="password" class="form-control" formControlName="currentPassword" />
+          </label>
 
-        <label class="d-block">
-          <span translate>&nbsp;</span>
-          <button class="btn btn-primary w-100" (click)="changePassword()" [disabled]="isLoading || (!currentPassword.length || !newPassword.length || (currentPassword == newPassword))">
-            <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
-            <span translate>Change Password</span>
-          </button>
-        </label>
+          <label class="d-block">
+            <span [ngClass]="(passwordForm.controls.newPassword.valid || passwordForm.controls.newPassword.untouched ) ? '' : 'text-danger'"
+              translate>New Password</span>
+            <input type="password" class="form-control" formControlName="newPassword" />
+          </label>
+
+          <label class="d-block">
+            <span translate>&nbsp;</span>
+            <button class="btn btn-primary w-100" type="submit" [disabled]="passwordForm.pristine || passwordForm.invalid || isLoading">
+              <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+              <span translate>Change Password</span>
+            </button>
+          </label>
+        </form>
       </div>
     </div>
   </div>
