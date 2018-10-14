@@ -17,6 +17,22 @@ module.exports = function (app) {
         let M = loopback.getModel(modelName);
         console.log("Setting up access hooks for %s", M.modelName);
 
+        M.defineProperty('created', { type: Date, default: '$now' });
+        M.defineProperty('modified', { type: Date, default: '$now' });
+
+        M.observe('before save', function event(ctx, next) { //Observe any insert/update event on Model
+            if (ctx.instance) {
+                console.log("we have an instance");
+                ctx.instance.modified = Date.now();
+                console.log(ctx.instance);
+            } else if (ctx.data) {
+                console.log("we have data");
+                ctx.data.modified = Date.now();
+                console.log(ctx.data);
+            }
+            next();
+        });
+
         M.observe("access", function logQuery(ctx, next) {
             console.log('access: %s query:', ctx.Model.modelName)
             console.log(ctx.query);
