@@ -71,6 +71,13 @@
       "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "hasRole"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "patchOrCreateWithRoles"
     }
   ],
   "methods": {}
