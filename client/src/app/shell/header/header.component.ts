@@ -23,11 +23,10 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private registeredUserApi: RegisteredUserApi,
     private i18nService: I18nService) {
-
-    this.roleChecker = new RoleChecker(registeredUserApi);
   }
 
   ngOnInit() {
+    this.roleChecker = new RoleChecker(this.registeredUserApi);
     this.getAccount();
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { finalize, merge } from 'rxjs/operators';
@@ -36,15 +36,15 @@ export class UserProfileComponent implements OnInit {
   constructor(
     protected auth: LoopBackAuth,
     private route: ActivatedRoute,
-    private router: Router,
     private authenticationService: AuthenticationService,
     private userApi: RegisteredUserApi,
     private formBuilder: FormBuilder,
     private location: Location) {
-    this.roleChecker = new RoleChecker(userApi);
   }
 
   ngOnInit() {
+    this.roleChecker = new RoleChecker(this.userApi);
+
     // this.initUserRoleForm();
     this.initUserForm();
     this.initPasswordForm();
