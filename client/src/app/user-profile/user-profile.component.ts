@@ -148,19 +148,19 @@ export class UserProfileComponent implements OnInit {
     }
 */
 
-    const params = Object.assign({}, this.userForm.value, { roles: this.userRoleForm.value });
+    //const params = Object.assign({}, this.userForm.value, { roles: this.userRoleForm.value });
     //const params = Object.assign({}, this.userForm.value, { roles: userRoleSubmit });
-    console.log(params);
-    this.userApi.patchOrCreateWithRoles(params)
+
+    this.userApi.patchOrCreateWithRoles(this.userForm.value)
       .pipe(finalize(() => {
         this.setLoading(false);
 
       })).subscribe((user: RegisteredUser) => {
         console.log(user);
         this.userForm.reset(user);
-
+        this.goBack();
         //updates url without reloading page
-        this.location.replaceState(`/user/${user.id}`);
+        //this.location.replaceState(`/user/${user.id}`);
 
       });
   }
