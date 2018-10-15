@@ -24,7 +24,9 @@
       <div class="row">
         <div class="col-sm-12 col-md-4">
           <strong class="text-gray-dark">
-            {{user.firstName}} {{user.lastName}}
+            <span>{{user.firstName}} {{user.lastName}}</span>
+
+            <div *ngFor="let role of user.roles" class="badge badge-primary">{{role.name}}</div>
           </strong>
         </div>
 

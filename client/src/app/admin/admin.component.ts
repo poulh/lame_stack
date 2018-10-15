@@ -24,7 +24,8 @@ export class AdminComponent implements OnInit {
   getUsers(): void {
     this.isLoading = true;
     const filter = {
-      order: 'lastName ASC'
+      order: 'lastName ASC',
+      include: 'roles'
     };
 
     this.userApi.find<RegisteredUser>(filter).subscribe(users => {
