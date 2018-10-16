@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LoaderComponent } from './loader/loader.component';
 import { GoBackComponent } from './go-back/go-back.component';
+import { PhoneNumberPipe } from './pipes/phoneNumber.pipe';
 
 @NgModule({
   imports: [
@@ -10,11 +11,13 @@ import { GoBackComponent } from './go-back/go-back.component';
   ],
   declarations: [
     LoaderComponent,
-    GoBackComponent
+    GoBackComponent,
+    PhoneNumberPipe
   ],
   exports: [
     LoaderComponent,
-    GoBackComponent
+    GoBackComponent,
+    PhoneNumberPipe
   ]
 })
 export class SharedModule { }
